@@ -1,0 +1,64 @@
+%%% ---------------------------------------------------------------------------
+%%% main.tex —— 试卷示例 / 模板骨架
+%%%
+%%% 用法：改这份文件即可出一份新试卷；版式全部由 exampaper.cls 控制。
+%%% 编译：xelatex main.tex   （连续编译两遍，页脚「共 X 页」才正确）
+%%%       或 latexmk -xelatex main.tex
+%%% ---------------------------------------------------------------------------
+\documentclass[12pt,a4paper]{exampaper}
+%% 字体集：默认自动检测（Windows→windows，macOS→mac，Linux→fandol/ubuntu）。
+%% 需要指定时把选项写进方括号，例如：
+%%   \documentclass[fontset=windows]{exampaper}
+%%   \documentclass[fontset=mac]{exampaper}
+
+\examname{高等数学分析期末试卷(A)}   % 页脚中的试卷名
+
+\begin{document}
+
+%% ======================= 抬头 =======================
+\examtitle{东南大学试卷（A卷）}
+
+\begin{center}
+  \examfield[3.4cm]{课程名称}{高等数学分析}\hspace{0.4em}%
+  \examfield[2.2cm]{课程代码}{B07M1041}\hspace{0.4em}%
+  \examfield[1.8cm]{考试学期}{23-24-3}\\[0.4em]
+  \examfield[4.4cm]{适用专业}{选学高等数分各专业}\hspace{0.4em}%
+  \examfield[2.0cm]{考试形式}{闭\hspace{0.5em}卷}\hspace{0.4em}%
+  \examfield[1.9cm]{考试时长}{150\hspace{0.4em}分钟}
+\end{center}
+
+\vspace{0.8em}
+%% 评分表：参数 = 大题数（默认 6）。改成 \examscoretable[5] 即 5 个评阅格。
+\examscoretable[6]
+\vspace{0.2em}
+
+%% ======================= 一、填空题 =======================
+%% 填空题一般不留答题空间，用默认小间距即可
+\examsection{填空题（本题共2小题，每小题4分，满分8分）}
+\begin{examquestions}
+  \examquestion 设 $f(x)=x^{2}$，则 $f'(1)=\underline{\hspace{2cm}}$。
+  \examquestion 设 $D=[0,1]\times[0,1]$，则
+    $\displaystyle\iint_{D}x\,\mathrm{d}\sigma=\underline{\hspace{2cm}}$。
+\end{examquestions}
+
+%% ======================= 二、计算题 =======================
+%% 计算题每题后面留答题空间：方括号里写题间距（原卷约 9cm）
+\examsection{计算下列各题（本题共2小题，每小题7分，满分14分）}
+\begin{examquestions}[9cm]
+  \examquestion 求函数 $z=x^{2}+y^{2}$ 在闭区域
+    $D=\{(x,y)\mid x^{2}+y^{2}\le 1\}$ 上的最大值与最小值。
+  \examquestion 计算曲线积分 $\displaystyle\oint_{L}(x+y)\,\mathrm{d}s$，
+    其中 $L$ 为圆周 $x^{2}+y^{2}=2x$。
+\end{examquestions}
+
+%% ======================= 三、单个大题（无小题编号）=======================
+\examsection{（本题满分8分）}
+\begin{examproblem}
+  已知曲线 $L$ 为闭曲线
+  $\begin{cases}x^{2}+y^{2}+z^{2}=1,\\ z=x,\end{cases}$
+  从 $z$ 轴正向负向看去为逆时针方向，求曲线积分
+  $\displaystyle\oint_{L}(y+z)\,\mathrm{d}x+(z^{2}-x^{2}+y)\,\mathrm{d}y
+   +x^{2}y^{2}\,\mathrm{d}z$。
+\end{examproblem}
+
+\end{document}

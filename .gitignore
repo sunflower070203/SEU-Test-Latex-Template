@@ -1,0 +1,19 @@
+# LaTeX 编译产物
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.xdv
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# 编辑器/系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

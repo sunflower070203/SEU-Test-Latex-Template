@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 841.89" width="595.28" height="841.89">
+  <rect x="0" y="0" width="595.28" height="841.89" fill="#ffffff"/>
+  <text x="191.12" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">东</text>
+  <text x="216.35" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">南</text>
+  <text x="241.58" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">大</text>
+  <text x="266.81" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">学</text>
+  <text x="292.04" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">试</text>
+  <text x="317.27" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">卷</text>
+  <text x="342.50" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">（</text>
+  <text x="367.73" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">A</text>
+  <text x="392.96" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">卷</text>
+  <text x="418.19" y="129.70" font-size="17.28" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">）</text>
+  <text x="128.53" y="154.20" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">课程名称</text>
+  <text x="226.69" y="154.20" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">高等数学分析</text>
+  <line x1="178.33" y1="154.20" x2="275.06" y2="154.20" stroke="#000" stroke-width="0.478"/>
+  <text x="279.86" y="154.20" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">课程代码</text>
+  <text x="360.96" y="154.20" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">B07M1041</text>
+  <line x1="329.66" y1="154.20" x2="392.26" y2="154.20" stroke="#000" stroke-width="0.478"/>
+  <text x="397.06" y="154.20" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">考试学期</text>
+  <text x="472.47" y="154.20" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">23-24-3</text>
+  <line x1="446.86" y1="154.20" x2="498.07" y2="154.20" stroke="#000" stroke-width="0.478"/>
+  <text x="115.72" y="179.20" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">适用专业</text>
+  <text x="228.12" y="179.20" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">选学高等数分各专业</text>
+  <line x1="165.52" y1="179.20" x2="290.71" y2="179.20" stroke="#000" stroke-width="0.478"/>
+  <text x="295.51" y="179.20" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">考试形式</text>
+  <text x="373.77" y="179.20" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">闭  卷</text>
+  <line x1="345.31" y1="179.20" x2="402.22" y2="179.20" stroke="#000" stroke-width="0.478"/>
+  <text x="407.02" y="179.20" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">考试时长</text>
+  <text x="483.85" y="179.20" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">150 分钟</text>
+  <line x1="456.82" y1="179.20" x2="510.88" y2="179.20" stroke="#000" stroke-width="0.478"/>
+  <line x1="105.30" y1="202.60" x2="521.30" y2="202.60" stroke="#000" stroke-width="0.478"/>
+  <line x1="105.30" y1="219.80" x2="521.30" y2="219.80" stroke="#000" stroke-width="0.478"/>
+  <line x1="105.30" y1="245.60" x2="469.30" y2="245.60" stroke="#000" stroke-width="0.478"/>
+  <line x1="105.30" y1="271.40" x2="521.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="105.30" y1="202.60" x2="105.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="157.30" y1="202.60" x2="157.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="209.30" y1="202.60" x2="209.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="261.30" y1="202.60" x2="261.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="313.30" y1="202.60" x2="313.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="365.30" y1="202.60" x2="365.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="417.30" y1="202.60" x2="417.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="469.30" y1="202.60" x2="469.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <line x1="521.30" y1="202.60" x2="521.30" y2="271.40" stroke="#000" stroke-width="0.478"/>
+  <text x="131.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">题号</text>
+  <text x="183.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">一</text>
+  <text x="235.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">二</text>
+  <text x="287.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">三</text>
+  <text x="339.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">四</text>
+  <text x="391.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">五</text>
+  <text x="443.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">六</text>
+  <text x="495.30" y="214.90" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">总分</text>
+  <text x="131.30" y="236.80" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">得分</text>
+  <text x="131.30" y="262.60" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">评阅人</text>
+  <text x="495.30" y="241.30" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="normal">总分</text>
+  <text x="114.90" y="300.30" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" text-anchor="start" font-weight="normal">一、填空题（本题共2小题，每小题4分，满分8分）</text>
+  <text x="114.90" y="322.90" font-size="12.00" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">1. 设 f(x) = x²，则 f′(1) = ________。</text>
+  <text x="114.90" y="350.40" font-size="12.00" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="start" font-weight="normal">2. 设 D = [0,1] × [0,1]，则  ∬ x dσ = ________。</text>
+  <text x="27.90" y="555.89" font-size="12.00" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" transform="rotate(-90 27.90 555.89)">自觉遵守考场纪律</text>
+  <text x="27.90" y="442.39" font-size="12.00" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" transform="rotate(-90 27.90 442.39)">如考试作弊</text>
+  <text x="27.90" y="364.89" font-size="12.00" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" transform="rotate(-90 27.90 364.89)">此答卷无效</text>
+  <text x="53.10" y="558.39" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" transform="rotate(-90 53.10 558.39)">学号</text>
+  <line x1="54.80" y1="531.79" x2="54.80" y2="435.39" stroke="#000" stroke-width="0.478"/>
+  <text x="53.10" y="426.39" font-size="12.00" font-family="SimHei, Heiti SC, Noto Sans CJK SC, sans-serif" transform="rotate(-90 53.10 426.39)">姓名</text>
+  <line x1="54.80" y1="399.79" x2="54.80" y2="303.39" stroke="#000" stroke-width="0.478"/>
+  <line x1="75.40" y1="696.39" x2="75.40" y2="180.39" stroke="#000" stroke-width="0.478" stroke-dasharray="1 4.3"/>
+  <text x="76.00" y="569.19" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" transform="rotate(-90 76.00 569.19)">密</text>
+  <text x="76.00" y="436.69" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" transform="rotate(-90 76.00 436.69)">封</text>
+  <text x="76.00" y="304.19" font-size="12.00" font-family="KaiTi, Kaiti SC, Noto Serif CJK SC, serif" transform="rotate(-90 76.00 304.19)">线</text>
+  <text x="313.30" y="776.49" font-size="10.00" font-family="SimSun, Songti SC, Noto Serif CJK SC, serif" text-anchor="middle" font-weight="normal">高等数学分析期末试卷(A)     共 6 页     第 1 页</text>
+</svg>
