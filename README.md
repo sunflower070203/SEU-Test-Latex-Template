@@ -56,54 +56,77 @@ latexmk -xelatex main.tex
 ## 文件说明
 
 ```
-exampaper.cls          模板本体（版式、字体、评分表、密封线、页脚全部在这里）
-main.tex               试卷示例 / 骨架，改这份文件即可出新卷
+exampaper.cls          模板本体（版式、字体、评分表、密封线、插图、页脚全部在这里）
+main.tex               试卷入口：默认是空骨架（只有抬头 + 评分表 + 各栏占位，不含题目）
+example-exam.tex       示例内容（虚构题目），由 main.tex 在 \showexampletrue 时引入
+figures/               放图片的目录（示例图 sample-figure.png 在这里）
+latexmkrc              让 latexmk / Overleaf 走 XeLaTeX
 preview/layout.svg     版式示意图
 tools/make_preview.py  生成上面这张示意图的脚本（可选，不参与编译）
 LICENSE                MIT
 ```
 
+**模板不带题目**：默认编译 `main.tex` 出来的是空骨架，所有「〈…〉」都是占位符。
+想先看完整排版效果（虚构题目 + 插图 + 公式），把 `main.tex` 里的
+`\showexamplefalse` 改成 `\showexampletrue` 再编译一次即可，改回来就是空模板。
+
 ## 快速开始
 
-抄 `main.tex` 的结构即可，最小例子：
+改 `main.tex` 即可，骨架长这样（把「〈…〉」换成自己的信息，题目写在各栏里）：
 
 ```latex
 \documentclass[12pt,a4paper]{exampaper}
-\examname{高等数学分析期末试卷(A)}   % 页脚左侧文字
+\examname{〈试卷名〉}                       % 页脚左侧
 
 \begin{document}
+\examtitle{〈学校名〉试卷（A 卷）}           % 大标题，自动加字距
 
-\examtitle{东南大学试卷（A卷）}        % 大标题，自动加字距
-
-\begin{center}                        % 抬头信息栏
-  \examfield[3.4cm]{课程名称}{高等数学分析}\hspace{0.4em}%
-  \examfield[2.2cm]{课程代码}{B07M1041}\\[0.4em]
-  \examfield[4.4cm]{适用专业}{选学高等数分各专业}\hspace{0.4em}%
-  \examfield[1.9cm]{考试时长}{150\hspace{0.4em}分钟}
+\begin{center}                             % 抬头信息栏
+  \examfield[3.4cm]{课程名称}{〈课程名称〉}\hspace{0.4em}%
+  \examfield[2.2cm]{课程代码}{〈课程代码〉}\hspace{0.4em}%
+  \examfield[1.8cm]{考试学期}{〈20xx-xx-x〉}\\[0.4em]
+  \examfield[4.4cm]{适用专业}{〈适用专业〉}\hspace{0.4em}%
+  \examfield[2.0cm]{考试形式}{闭\hspace{0.5em}卷}\hspace{0.4em}%
+  \examfield[1.9cm]{考试时长}{〈150〉\hspace{0.4em}分钟}
 \end{center}
 
-\vspace{0.8em}
-\examscoretable[6]                    % 评分表，6 = 评阅栏数
+\examscoretable[6]                         % 评分表，6 = 评阅栏数
 
-\examsection{填空题（本题共2小题，每小题4分，满分8分）}
+\examsection{〈第一栏标题，如：填空题（本题共 ? 小题，每小题 ? 分，满分 ? 分）〉}
 \begin{examquestions}
-  \examquestion 设 $f(x)=x^{2}$，则 $f'(1)=\underline{\hspace{2cm}}$。
-  \examquestion 设 $D=[0,1]\times[0,1]$，则 $\displaystyle\iint_{D}x\,\mathrm{d}\sigma=$\underline{\hspace{2cm}}。
+  \examquestion 〈题干〉
 \end{examquestions}
 
-\examsection{计算下列各题（本题共2小题，每小题7分，满分14分）}
-\begin{examquestions}[9cm]            % 9cm = 每题后留出的答题空间
-  \examquestion 求函数 $z=x^{2}+y^{2}$ 在 $D=\{(x,y)\mid x^{2}+y^{2}\le1\}$ 上的最值。
-  \examquestion 计算 $\displaystyle\oint_{L}(x+y)\,\mathrm{d}s$，其中 $L$ 为圆周 $x^{2}+y^{2}=2x$。
+\examsection{〈第二栏标题，如：计算题（本题共 ? 小题…）〉}
+\begin{examquestions}[7cm]                 % 7cm = 每题后留出的答题空间
+  \examquestion 〈题干〉
 \end{examquestions}
-
-\examsection{（本题满分8分）}          % 只有一道大题、无小题编号时这样写
-\begin{examproblem}
-  已知曲线 $L$ 为闭曲线 …，求曲线积分 $\displaystyle\oint_{L}P\,\mathrm{d}x+Q\,\mathrm{d}y$。
-\end{examproblem}
 
 \end{document}
 ```
+
+想直接看效果，编译 `example-exam.tex`（虚构题目，含插图与公式的完整写法）。
+
+## 插图
+
+`graphicx` 已加载，图片放在 `figures/` 目录下：
+
+```latex
+\examfigure[0.6\textwidth]{图题}{figures/sample-figure.png}   % 一行插图 + 自动图号
+```
+
+第一个参数是宽度（默认 `0.6\textwidth`）。需要标准 `figure` 浮动体时直接用：
+
+```latex
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figures/your-image.png}
+  \caption{图题}\label{fig:your}
+\end{figure}
+```
+
+png / jpg / pdf 都可直接插入；svg 请先在外部转成 pdf。表格用标准 `tabular`
+（`array`、`tabularx`、`multirow` 已加载），放在题干里即可。
 
 ## 命令速查
 
@@ -117,6 +140,7 @@ LICENSE                MIT
 | `\begin{examquestions}[题间距]` … `\end{examquestions}` | 带编号的小题区。默认题间距 `\examitemsep`（13pt，填空题用）；给如 `[9cm]` 即每题后留出答题空间 |
 | `\examquestion` | 输出「1.」「2.」…（每道大题内重新计数） |
 | `\begin{examproblem}` … `\end{examproblem}` | 不带编号的单个大题（「三、（本题满分8分）」这类） |
+| `\examfigure[宽]{图题}{图片文件}` | 插入一张图并自动给图号；`graphicx` 已加载，也可用标准 `figure` 环境 |
 | `\examsidebarfalse` | 放在导言区，关闭左侧密封线 |
 | `\question` | `\examquestion` 的短别名（仅当 `\question` 未被占用时定义） |
 

@@ -207,6 +207,21 @@
 \providecommand*{\question}{\examquestion}
 
 %% ===========================================================================
+%% 9b. 插图：\examfigure[<宽度>]{<图题>}{<图片文件>}
+%%     默认宽度 0.6\textwidth；图片建议放在 figures/ 目录下。
+%%     需要图文混排、多子图等复杂排版时，直接使用标准的
+%%     \begin{figure}...\end{figure} 环境即可（graphicx 已加载）。
+%% ===========================================================================
+\newcommand{\examfigure}[3][0.6\textwidth]{%
+  \par\addvspace{0.3em}%
+  \refstepcounter{figure}%
+  \begin{center}
+    \includegraphics[width=#1]{#3}\\[0.3em]
+    {\small\songti 图~\thefigure\quad #2}
+  \end{center}%
+  \addvspace{0.3em}\par}
+
+%% ===========================================================================
 %% 10. 左侧密封线（背景层，每页都有；坐标单位为 pt，原点在页面左下角）
 %%     不需要密封线时，在导言区写 \examsidebarfalse 即可。
 %% ===========================================================================

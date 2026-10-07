@@ -1,0 +1,78 @@
+%%% ---------------------------------------------------------------------------
+%%% example-exam.tex —— 完整示例（虚构内容，仅演示排版与用法）
+%%%
+%%% 本文件是「内容文件」，不含 \documentclass，由 main.tex 在
+%%% \showexampletrue 时 \input 进来。想看效果：把 main.tex 里的
+%%% \showexamplefalse 改成 \showexampletrue 再编译。
+%%%
+%%% 演示内容：抬头与信息栏、评分表、填空题、选择题、计算题（答题留白）、
+%%% 应用题（插图 + 公式），以及页脚与左侧密封线。
+%%% ---------------------------------------------------------------------------
+
+\examname{示例课程期末试卷(A)}          % 页脚左侧的试卷名
+
+%% ======================= 抬头 =======================
+\examtitle{示例大学试卷（A 卷）}
+
+\begin{center}
+  \examfield[3.4cm]{课程名称}{示例课程}\hspace{0.4em}%
+  \examfield[2.2cm]{课程代码}{EXM1001}\hspace{0.4em}%
+  \examfield[1.8cm]{考试学期}{25-26-1}\\[0.4em]
+  \examfield[4.4cm]{适用专业}{示例专业}\hspace{0.4em}%
+  \examfield[2.0cm]{考试形式}{闭\hspace{0.5em}卷}\hspace{0.4em}%
+  \examfield[1.9cm]{考试时长}{120\hspace{0.4em}分钟}
+\end{center}
+
+\vspace{0.8em}
+
+\examscoretable[4]                      % 4 个大题
+
+\vspace{0.6em}
+
+%% ======================= 一、填空题 =======================
+\examsection{填空题（本题共 3 小题，每小题 4 分，满分 12 分）}
+\begin{examquestions}
+  \examquestion 若 $f(x)=x^{2}$，则 $f'(1)=$ \underline{\hspace{2.5cm}}。
+  \examquestion 设 $D=[0,1]\times[0,1]$，则 $\iint_{D} x\,\mathrm{d}\sigma=$
+    \underline{\hspace{2.5cm}}。
+  \examquestion 设矩阵 $A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，
+    则 $\det A=$ \underline{\hspace{2.5cm}}。
+\end{examquestions}
+
+%% ======================= 二、选择题 =======================
+\examsection{单项选择题（本题共 2 小题，每小题 5 分，满分 10 分）}
+\begin{examquestions}
+  \examquestion 函数 $y=\sin x$ 的最小正周期是
+    \quad A.\ $\pi$ \quad B.\ $2\pi$ \quad C.\ $4\pi$ \quad D.\ $\dfrac{\pi}{2}$
+  \examquestion 下列级数中收敛的是
+    \quad A.\ $\sum_{n=1}^{\infty}\dfrac{1}{n}$ \quad
+    B.\ $\sum_{n=1}^{\infty}\dfrac{1}{n^{2}}$\quad
+    C.\ $\sum_{n=1}^{\infty}(-1)^{n}$ \quad D.\ $\sum_{n=1}^{\infty}2^{n}$
+\end{examquestions}
+
+%% ======================= 三、计算题（小题之间留答题空间）=======================
+\examsection{计算题（本题共 2 小题，每小题 8 分，满分 16 分）}
+\begin{examquestions}[7cm]              % 小题之间留 7cm 答题空间
+  \examquestion 计算 $\displaystyle\lim_{x\to 0}\frac{\sin x}{x}$。
+  \examquestion 计算 $\displaystyle\int_{0}^{1} x^{2}\,\mathrm{d}x$。
+\end{examquestions}
+
+%% ======================= 四、应用题（含插图）=======================
+\examsection{应用题（本题共 1 小题，满分 12 分）}
+\begin{examproblem}
+  \examquestion 设某物理量的变化曲线如图~\ref{fig:curve} 所示，
+  该曲线在 $t=0$ 附近经过原点。试估计曲线在 $t=1$ 处的函数值，
+  并说明你的估算依据。
+
+  %% 插图：\examfigure[<宽度>]{<图题>}{<图片文件>}
+  %% 图片放在项目根目录的 figures/ 下；png / jpg / pdf 均可
+  \examfigure[0.62\textwidth]{示例曲线（演示插图用法）}{figures/sample-figure.png}
+  \label{fig:curve}
+
+  %% 需要更自由的图文排版时，直接用标准 figure 环境（graphicx 已加载）：
+  %% \begin{figure}[htbp]
+  %%   \centering
+  %%   \includegraphics[width=0.5\textwidth]{figures/your-image.png}
+  %%   \caption{图题}\label{fig:your}
+  %% \end{figure}
+\end{examproblem}
