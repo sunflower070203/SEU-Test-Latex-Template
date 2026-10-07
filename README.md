@@ -1,78 +1,126 @@
-# exampaper —— 通用中文试卷 LaTeX 模板
+# 通用中文试卷 LaTeX 模板（东南大学试卷版式）
 
-一个可直接套用的中文试卷（期末考试卷）LaTeX 模板，提供了中文试卷常见的全部版式要素：
+一个**通用的中文期末考试卷 LaTeX 模板**：版式取自一份真实的东南大学试卷（由 PDF 逆向还原，
+页面几何、字号、表格线、密封线坐标都按原卷实测得到），但模板本身不带任何题目，
+任何高校、任何课程都能直接套用。
 
-- A4 / 12pt，正文**宋体**、栏目与表格标题**黑体**、填写内容**楷体**，数学公式为 Computer Modern（原卷风格）；
-- 试卷标题大字号 + 自动字距（`东 南 大 学 试 卷 （A卷）` 那种效果）；
-- 抬头信息栏：`课程名称 / 课程代码 / 考试学期 / 适用专业 / 考试形式 / 考试时长`，带下划线填空；
-- 评分表：`题号 | 一 | 二 | … | 总分`，`得分 / 评阅人` 两行，「总分」列自动跨行合并；
-- 大题自动编号（`一、` `二、` `三、` …），小题自动编号（`1.` `2.` …），每题后可留答题空间；
-- 左侧竖排**密封线**（考场纪律提示 + 学号/姓名 + 点线「密 封 线」），逐页出现在背景层；
-- 页脚：`试卷名   共 X 页   第 Y 页`。
-
-版式参数来自一份真实的期末试卷（A4，正文宽 14.70cm，页顶留白 4cm），抽取时保留了页面几何、
-字号、行距、表格线与密封线的实际坐标，因此外观与原卷基本一致。**题目内容不在模板范围内**，
-请自行填写。
+- **默认输出空骨架**：只有抬头、信息栏、评分表和各栏占位，一道题都没有；
+- **一个开关看完整示例**：把 `main.tex` 里的 `\showexamplefalse` 改成 `\showexampletrue`，
+  立刻得到一份含填空/选择/计算/应用题的示例卷（含插图、多页）；
+- **页数自动增长**：加题目就自动加页，页脚「共 X 页 第 Y 页」、左侧密封线每页自动出现。
 
 ## 效果预览
 
-`preview/layout.svg` 是按模板参数绘制的版式示意图（非编译结果，仅供确认版式）：
+示例卷（3 页，虚构内容）—— 用 `\showexampletrue` 编译所得，文件见
+[`preview/sample-exam.pdf`](preview/sample-exam.pdf)：
 
-![版式示意图](preview/layout.svg)
+![示例卷预览](preview/sample-exam-preview.png)
+
+## 功能特性
+
+- A4 / 12pt，正文**宋体**、栏目与表格标题**黑体**、填写内容**楷体**，数学公式为 Computer Modern（原卷风格）；
+- 试卷标题大字号 + 自动字距，即「东 南 大 学 试 卷 （A 卷）」那种效果；
+- 抬头信息栏：`课程名称 / 课程代码 / 考试学期 / 适用专业 / 考试形式 / 考试时长`，带下划线填空；
+- 评分表：`题号 | 一 | 二 | … | 总分`，`得分 / 评阅人` 两行，「总分」列自动跨行合并，栏数可调；
+- 大题自动编号（`一、` `二、` `三、` …）、小题自动编号（`1.` `2.` …），每栏小题号自动重置；
+- 答题留白：`\begin{examquestions}[7cm]` 一个参数即可在每题后留出空白；
+- 左侧竖排**密封线**：考场纪律提示 + 学号/姓名 + 点线「密 封 线」，逐页出现在背景层；
+- 插图：内置 `\examfigure` 命令（也支持标准 `figure` 环境），图片放 `figures/` 即可；
+- 页脚：`试卷名　共 X 页　第 Y 页`，总页数自动统计，多页不掉页码；
+- 多页友好：`\newpage` 控制大题起始页，长题目自动断开。
+
+## 目录结构
+
+```
+SEU-Test-Latex-Template/
+├── main.tex                    # 入口文件（编译目标）：默认空模板，\showexampletrue 切示例
+├── example-exam.tex            # 示例内容（虚构题目），由 main.tex 引入，不能单独当主文件编译
+├── exampaper.cls               # 模板本体：版式、字体、评分表、密封线、插图命令、页脚
+├── latexmkrc                   # latexmk 配置（走 XeLaTeX）
+├── Makefile                    # 一键编译：make / make quick / make clean / make cleanall
+├── figures/
+│   └── sample-figure.png       # 示例插图（演示 \examfigure 用法）
+├── preview/
+│   ├── sample-exam.pdf         # 示例卷编译结果（3 页）
+│   ├── sample-exam-preview.png # 上面那张三联预览图
+│   ├── sample-page1.png        # 示例卷第 1 页
+│   └── layout.svg              # 版式示意图（按模板参数绘制，非编译结果）
+├── tools/
+│   └── make_preview.py         # 生成 layout.svg 的脚本（可选，不参与编译）
+├── LICENSE                     # MIT
+└── .gitignore
+```
+
+**各文件职责**：`main.tex` 是唯一的编译入口；`example-exam.tex` 是**内容文件**（不含
+`\documentclass`），被 `main.tex` 用 `\input` 引进来；`exampaper.cls` 集中了全部版式定义，
+想改字号、页边距、密封线位置都改它。
 
 ## 环境要求
 
 | 项目 | 要求 |
 | --- | --- |
-| 编译器 | **XeLaTeX**（推荐）或 LuaLaTeX；中文不建议用 pdfLaTeX |
-| TeX 发行版 | TeX Live 2020+ / MiKTeX 21+ / MacTeX（MacTeX 亦可） |
-| 宏包 | `ctex`、`geometry`、`amsmath`、`graphicx`、`array`、`tabularx`、`multirow`、`lastpage`、`eso-pic`、`fancyhdr`（前两者之外都是常见宏包，随发行版自带） |
+| 编译器 | **XeLaTeX**（推荐）或 LuaLaTeX；**中文不要用 pdfLaTeX** |
+| TeX 发行版 | TeX Live 2020+ / MiKTeX 21+ / MacTeX |
+| 宏包 | `ctex`、`geometry`、`amsmath`、`graphicx`、`array`、`tabularx`、`multirow`、`lastpage`、`eso-pic`、`fancyhdr`、`iftex`（随发行版自带） |
 | 中文字体 | Windows 自带即可；macOS / Linux 见下文「字体」 |
 
-## 编译
+> 模板内置引擎检测：万一用 pdfLaTeX 编译，会直接报
+> 「本模板包含中文，必须使用 XeLaTeX 或 LuaLaTeX 编译」，而不是抛出一串看不懂的错误。
+
+## 快速开始（本地）
 
 ```bash
-# 推荐：连续编译两遍，页脚「共 X 页」才正确
-xelatex main.tex
-xelatex main.tex
+git clone https://github.com/sunflower070203/SEU-Test-Latex-Template.git
+cd SEU-Test-Latex-Template
 
-# 或者
-latexmk -xelatex main.tex
+make            # 等价于 latexmk -xelatex main.tex（自动跑两遍）
+# 或者手动：
+xelatex main.tex && xelatex main.tex
 ```
 
-### 在 Overleaf 上使用（已实测通过）
+编出来的就是空模板（1 页）；想看完整示例，把 `main.tex` 里这一行的注释开关打开：
 
-1. New Project → Upload Project，上传本项目的 zip。
-2. **必须改编译器**：左下角 Settings → Compiler → 选 `XeLaTeX`（默认是 pdfLaTeX，
-   会出现 `CTeX fontset 'fandol' is unavailable` + `Package CJK Error: Invalid character code`）。
-   项目自带的 `latexmkrc`（`$pdf_mode = 5`）**不能**覆盖 Overleaf 的项目级编译器设置，
-   实测仍会走 pdfLaTeX，所以这一步必须手动做。
-3. 若报找不到字体，把 `\documentclass[12pt,a4paper]{exampaper}` 换成
-   `\documentclass[fontset=fandol]{exampaper}`（Overleaf 是 Linux 环境，默认字体集为 fandol）。
-
-> 本模板在文档类里已加入引擎检测：用 pdfLaTeX 编译时会直接报
-> 「本模板包含中文，必须使用 XeLaTeX 或 LuaLaTeX 编译」，而不是抛出一堆看不懂的错。
-
-## 文件说明
-
-```
-exampaper.cls          模板本体（版式、字体、评分表、密封线、插图、页脚全部在这里）
-main.tex               试卷入口：默认是空骨架（只有抬头 + 评分表 + 各栏占位，不含题目）
-example-exam.tex       示例内容（虚构题目），由 main.tex 在 \showexampletrue 时引入
-figures/               放图片的目录（示例图 sample-figure.png 在这里）
-latexmkrc              让 latexmk / Overleaf 走 XeLaTeX
-preview/layout.svg     版式示意图
-tools/make_preview.py  生成上面这张示意图的脚本（可选，不参与编译）
-LICENSE                MIT
+```latex
+\showexamplefalse      % ← 改成 \showexampletrue 看完整示例
 ```
 
-**模板不带题目**：默认编译 `main.tex` 出来的是空骨架，所有「〈…〉」都是占位符。
-想先看完整排版效果（虚构题目 + 插图 + 公式），把 `main.tex` 里的
-`\showexamplefalse` 改成 `\showexampletrue` 再编译一次即可，改回来就是空模板。
+然后 `make` 或 `make MAIN=example-exam` 即可。
 
-## 快速开始
+## 在 Overleaf 上使用
 
-改 `main.tex` 即可，骨架长这样（把「〈…〉」换成自己的信息，题目写在各栏里）：
+### 方式一：上传 zip（最常用）
+
+1. 在本仓库页面点 **Code → Download ZIP**，得到 `SEU-Test-Latex-Template-main.zip`；
+2. 打开 Overleaf 首页 → **New Project → Existing project (.zip)**，上传该 zip；
+3. **把编译器改成 XeLaTeX**：左下角 **Settings → Compiler → Compiler 选 `XeLaTeX`**；
+4. 点 **Recompile**，完成。
+
+> ⚠️ 第 3 步不能省。Overleaf 新建项目的默认编译器是 **pdfLaTeX**，中文会报
+> `CTeX fontset 'fandol' is unavailable` + `Package CJK Error: Invalid character code`。
+> 实测 `latexmkrc` 和 `% !TEX program = xelatex` 这类写法**都压不过** Overleaf 的项目级设置，
+> 必须在 Settings 里手动选一次（每个项目只需设置一次）。
+
+### 方式二：从 GitHub 导入
+
+Overleaf 首页 → **New Project → Import from GitHub**，选择本仓库即可，导入后同样要按上面第 3 步切换编译器。
+
+### 方式三：直接复制文件
+
+已有项目的话，把 `exampaper.cls`、`main.tex`、`example-exam.tex`（以及 `figures/`）
+拖进项目文件树，然后同样把编译器切成 XeLaTeX。
+
+### 几点提示
+
+- **必须编译两遍**：页脚「共 X 页」靠 `lastpage` 统计，第二遍才准确（Overleaf 默认就会跑两遍）；
+- **字体**：Overleaf 是 Linux 环境，ctex 会自动用 Fandol 字体集，一般无需干预；
+  若提示找不到字体，把 `\documentclass[12pt,a4paper]{exampaper}` 改成
+  `\documentclass[fontset=fandol]{exampaper}`；
+- **主文件必须是 `main.tex`**：`example-exam.tex` 是内容文件，被设成主文件会编译失败
+  （模板会给出明确提示）。
+
+## 出一份自己的卷子
+
+改 `main.tex` 就行，骨架长这样：
 
 ```latex
 \documentclass[12pt,a4paper]{exampaper}
@@ -92,12 +140,12 @@ LICENSE                MIT
 
 \examscoretable[6]                         % 评分表，6 = 评阅栏数
 
-\examsection{〈第一栏标题，如：填空题（本题共 ? 小题，每小题 ? 分，满分 ? 分）〉}
+\examsection{填空题（本题共 ? 小题，每小题 ? 分，满分 ? 分）}
 \begin{examquestions}
   \examquestion 〈题干〉
 \end{examquestions}
 
-\examsection{〈第二栏标题，如：计算题（本题共 ? 小题…）〉}
+\examsection{计算题（本题共 ? 小题，每小题 ? 分，满分 ? 分）}
 \begin{examquestions}[7cm]                 % 7cm = 每题后留出的答题空间
   \examquestion 〈题干〉
 \end{examquestions}
@@ -105,9 +153,7 @@ LICENSE                MIT
 \end{document}
 ```
 
-想直接看效果，编译 `example-exam.tex`（虚构题目，含插图与公式的完整写法）。
-
-## 插图
+### 插图
 
 `graphicx` 已加载，图片放在 `figures/` 目录下：
 
@@ -115,7 +161,7 @@ LICENSE                MIT
 \examfigure[0.6\textwidth]{图题}{figures/sample-figure.png}   % 一行插图 + 自动图号
 ```
 
-第一个参数是宽度（默认 `0.6\textwidth`）。需要标准 `figure` 浮动体时直接用：
+需要更自由的图文排版，直接用标准 `figure` 环境：
 
 ```latex
 \begin{figure}[htbp]
@@ -125,51 +171,41 @@ LICENSE                MIT
 \end{figure}
 ```
 
-png / jpg / pdf 都可直接插入；svg 请先在外部转成 pdf。表格用标准 `tabular`
+png / jpg / pdf 都能直接插入；svg 请先转成 pdf。表格用标准 `tabular`
 （`array`、`tabularx`、`multirow` 已加载），放在题干里即可。
 
-## 多页试卷
+### 多页试卷
 
-页数不用手写：**内容变多就自动加页**（默认的空骨架刚好 1 页，`\showexampletrue` 的示例是 3 页）。
-下面这些东西已经做成「每页自动都有」，不需要额外设置：
-
-- 页脚 `试卷名   共 X 页   第 Y 页`（`lastpage` + `fancyhdr`，连 `plain` 样式页也装了同一个页脚）；
-- 左侧竖排密封线（画在 `eso-pic` 背景层，逐页输出）。
-
-抬头（标题 + 信息栏）和评分表只出现在第 1 页 —— 它们本来就是一次性内容。
-
-控制分页的常用手段：
+页数不用手写：**内容多就自动加页**（空骨架 1 页，示例 3 页）。以下元素每页自动都有：
+页脚「试卷名 共 X 页 第 Y 页」、左侧竖排密封线；抬头与评分表只在第 1 页。
 
 | 需求 | 写法 |
 | --- | --- |
-| 让某道大题整体挪到下一页开头 | 在 `\examsection{...}` 前加 `\newpage`（示例文件里演示了一次） |
+| 让某道大题整体挪到下一页开头 | 在 `\examsection{...}` 前加 `\newpage` |
 | 长题目自动断开 | 不用管，LaTeX 会在行间自动分页 |
 | 加/减答题空间 | 调 `\begin{examquestions}[7cm]` 的间距，或改 `\examitemsep` |
 | 整份试卷不要密封线 | 导言区写 `\examsidebarfalse` |
 
 两个容易踩的点：
 
-1. **必须编译两遍**（Overleaf 默认就会跑两遍）。只编一遍时页脚「共 X 页」会显示上一轮的页数，
-   可能看到 `??` 或旧数字。
-2. **单处答题留白别超过一页**。`[7cm]` 是纯垂直空白，如果当前页只剩 3cm 而你要 7cm，
-   空白会被切到下一页，看起来像「这道题的答题位置不见了」。对策：把间距调小，
-   或者在 `\examsection` 前用 `\newpage` 让这道大题从新页开始。
+1. **必须编译两遍**，否则页脚总页数是上一轮的；
+2. **单处答题留白别超过一页**：当前页只剩 3cm 而你要 7cm 时，空白会被切到下一页，
+   看起来像「答题位置不见了」。对策：调小间距，或在该大题前 `\newpage`。
 
 ## 命令速查
 
 | 命令 | 说明 |
 | --- | --- |
 | `\examtitle{...}` | 试卷大标题：居中、`\Large`、字符自动加字距 |
-| `\examname{...}` | 页脚中显示的试卷名，如「高等数学分析期末试卷(A)」 |
-| `\examfield[宽]{项目名}{内容}` | 抬头信息栏的一项。宽度即下划线长度；内容留空 `{}` 得到空白横线；内容为楷体 |
-| `\examscoretable[大题数]` | 评分表。参数默认 6，即 6 个评阅格；表格宽度自动撑满版心 |
-| `\examsection{栏目标题}` | 大题标题，自动加「一、」「二、」…；同时把小题编号重置为 1 |
-| `\begin{examquestions}[题间距]` … `\end{examquestions}` | 带编号的小题区。默认题间距 `\examitemsep`（13pt，填空题用）；给如 `[9cm]` 即每题后留出答题空间 |
-| `\examquestion` | 输出「1.」「2.」…（每道大题内重新计数） |
-| `\begin{examproblem}` … `\end{examproblem}` | 不带编号的单个大题（「三、（本题满分8分）」这类） |
-| `\examfigure[宽]{图题}{图片文件}` | 插入一张图并自动给图号；`graphicx` 已加载，也可用标准 `figure` 环境 |
-| `\examsidebarfalse` | 放在导言区，关闭左侧密封线 |
-| `\question` | `\examquestion` 的短别名（仅当 `\question` 未被占用时定义） |
+| `\examname{...}` | 页脚中显示的试卷名 |
+| `\examfield[宽]{项目名}{内容}` | 抬头信息栏的一项；宽度即下划线长度，内容留空得到空白横线，内容用楷体 |
+| `\examscoretable[大题数]` | 评分表，默认 6 个评阅格，宽度自动撑满版心 |
+| `\examsection{栏目标题}` | 大题标题，自动加「一、」「二、」…，并把小题号重置为 1 |
+| `\begin{examquestions}[题间距]` … `\end{examquestions}` | 小题区；默认 13pt，给如 `[7cm]` 即每题后留答题空间 |
+| `\examquestion` | 输出「1.」「2.」…（每道大题内重新计数），别名 `\question` |
+| `\begin{examproblem}` … `\end{examproblem}` | 单个大题（不自动编号小题） |
+| `\examfigure[宽]{图题}{图片文件}` | 插入一张图并自动给图号 |
+| `\examsidebarfalse` | 导言区使用，关闭左侧密封线 |
 
 ## 版式参数
 
@@ -177,26 +213,20 @@ png / jpg / pdf 都可直接插入；svg 请先在外部转成 pdf。表格用�
 
 | 参数 | 默认 | 含义 |
 | --- | --- | --- |
-| `geometry` | `top=4cm, bottom=2.5cm, left=3.7cm, right=2.6cm` | 页边距。左边距较大是为密封线留位置 |
+| `geometry` | `top=4cm, bottom=2.5cm, left=3.7cm, right=2.6cm` | 页边距；左边距较大是为密封线留位置 |
 | `\parindent` | `0.8em`（≈9.6pt） | 段落首行缩进，也用于大题标题位置 |
-| `\examindent` | `0.8em` | 题目整体左缩进（题干换行后与首行左端对齐，与原卷一致） |
-| `\examziju` | `0.46em` | 试卷标题的字距（相对标题字号） |
+| `\examindent` | `0.8em` | 题目整体左缩进（换行后与首行左端对齐） |
+| `\examziju` | `0.46em` | 试卷标题字距 |
 | `\examitemsep` | `13pt` | `examquestions` 的默认题间距 |
-| `\examsectionpreskip` / `\examsectionpostskip` | `1.2em` / `0.4em` | 大题标题上/下间距 |
+| `\examsectionpreskip` / `\examsectionpostskip` | `1.2em` / `0.4em` | 大题标题上下间距 |
 | `\exam@warn` `\exam@id` `\exam@seal` | — | 密封线三行竖排文字的内容 |
-| `\exam@side` 中的 `\put(x,y)` | `(27.9,286) (53.1,283.5) (76,145.5)` | 密封线三行文字的坐标，单位 pt，原点在**页面左下角** |
-
-> 密封线是画在背景层（`eso-pic`）上的，位置用绝对坐标控制。若换成非 A4 纸或大改页边距，
-> 需要相应调整这三个 `\put` 坐标。
+| `\exam@side` 里的 `\put(x,y)` | `(27.9,286) (53.1,283.5) (76,145.5)` | 密封线三行文字坐标，单位 pt，原点在页面左下角 |
 
 ## 常见问题
 
 **页脚显示「共 ?? 页」或页数不对** —— 编译两遍即可（`lastpage` 需要这一轮才知道总页数）。
 
-**密封线不在左侧 / 跑到别处** —— 密封线依赖 `eso-pic` 的背景层坐标（原点为页面左下角），
-请确认 `eso-pic` 版本 ≥ 1.3；如需微调直接改 `\exam@side` 里的数字。
-
-**提示字体缺失（XXX font not found）** —— 说明当前系统的 ctex 字体集不匹配：
+**提示字体缺失（XXX font not found）** —— 当前系统的 ctex 字体集不匹配，指定即可：
 
 ```latex
 \documentclass[fontset=windows]{exampaper}  % Windows：宋体/黑体/楷体
@@ -205,26 +235,22 @@ png / jpg / pdf 都可直接插入；svg 请先在外部转成 pdf。表格用�
 \documentclass[fontset=fandol]{exampaper}   % 随 TeX Live 附带，任何平台都能编
 ```
 
-**提示 `Overfull \hbox`（文本超出版心）** —— 抬头信息栏/题干写得太宽，减小 `\examfield`
-的宽度参数或换行即可。
+**Overleaf 报 `CTeX fontset 'fandol' is unavailable` / `Package CJK Error`** ——
+编译器还是 pdfLaTeX，去 Settings → Compiler 选 XeLaTeX。
 
-**想换成自己学校的名字** —— 直接改 `\examtitle{...}`；有校名要求的可以把标题拆成两行。
+**提示 `Overfull \hbox`（文本超出版心）** —— 抬头信息栏或题干写得太宽，
+减小 `\examfield` 的宽度参数或换行即可。
 
-## 发布到 GitHub
+**密封线不在左侧 / 跑到别处** —— 密封线画在 `eso-pic` 背景层上，用绝对坐标控制（原点为页面
+左下角）。改纸张或大幅改页边距时需要相应调整 `\exam@side` 里的三个 `\put` 坐标。
 
-本仓库已经初始化过本地 git 并完成首次提交，直接推送即可：
+**想换成自己学校的名字** —— 直接改 `\examtitle{...}`；需要两行标题可以自己加换行。
 
-```bash
-# 方式一：GitHub CLI
-gh repo create latex-exam-paper-template --public --source=. --push
+## 致谢与参考
 
-# 方式二：先在 GitHub 网页端建空仓库，再
-git remote add origin git@github.com:<你的用户名>/latex-exam-paper-template.git
-git push -u origin main
-```
-
-建议 push 前先本地编译一遍（`xelatex main.tex` 两遍），确认效果后把生成的 PDF 一并发布。
+- 版式来自一份真实的东南大学期末考试卷 PDF，通过逐字符坐标解析逆向还原（不包含任何原卷题目内容）；
+- README 的组织方式参考了 [WCY-dt/SEU-Master-LaTeX-Template](https://github.com/WCY-dt/SEU-Master-LaTeX-Template)。
 
 ## 许可
 
-MIT License，见 `LICENSE`。欢迎自由修改、分发；若对版式做了改进，欢迎提 PR。
+[MIT License](LICENSE)。欢迎自由修改、分发；如果对版式做了改进，欢迎提 PR。
