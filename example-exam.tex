@@ -9,6 +9,15 @@
 %%% 应用题（插图 + 公式），以及页脚与左侧密封线。
 %%% ---------------------------------------------------------------------------
 
+%% 保险：本文件只是内容文件，单独编译没有意义 —— 万一被设成了主文件，给一句明确提示。
+%% （正常由 main.tex 引入时 \examtitle 已定义，这段被跳过，不影响编译。）
+\ifdefined\examtitle\else
+  \PackageError{exampaper}%
+    {example-exam.tex 是内容文件，不能当作主文件编译}%
+    {请把主文件设为 main.tex（Overleaf：Settings ---> Compiler ---> Main document），%
+     或者在 main.tex 里把 showexamplefalse 改成 showexampletrue}%
+\fi
+
 \examname{示例课程期末试卷(A)}          % 页脚左侧的试卷名
 
 %% ======================= 抬头 =======================
