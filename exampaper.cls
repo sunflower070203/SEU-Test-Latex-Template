@@ -81,6 +81,13 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \fancyfoot[C]{\exam@foot}
+%% plain 样式也装上同一个页脚：多页试卷里若某页被切成 plain（\thispagestyle{plain}、
+%% 章节起始页等），页码与「共 X 页」不会丢。
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+  \fancyfoot[C]{\exam@foot}}
 
 %% ===========================================================================
 %% 6. 试卷标题：居中、\Large、自动加字距
