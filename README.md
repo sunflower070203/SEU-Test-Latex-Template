@@ -1,5 +1,8 @@
 # 通用中文试卷 LaTeX 模板（东南大学试卷版式）
 
+[![Build PDF](https://github.com/sunflower070203/SEU-Test-Latex-Template/actions/workflows/build.yml/badge.svg)](https://github.com/sunflower070203/SEU-Test-Latex-Template/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 一个**通用的中文期末考试卷 LaTeX 模板**：版式取自一份真实的东南大学试卷（由 PDF 逆向还原，
 页面几何、字号、表格线、密封线坐标都按原卷实测得到），但模板本身不带任何题目，
 任何高校、任何课程都能直接套用。
@@ -38,6 +41,7 @@ SEU-Test-Latex-Template/
 ├── exampaper.cls               # 模板本体：版式、字体、评分表、密封线、插图命令、页脚
 ├── latexmkrc                   # latexmk 配置（走 XeLaTeX）
 ├── Makefile                    # 一键编译：make / make quick / make clean / make cleanall
+├── .github/workflows/build.yml # CI：每次 push 自动编译并上传 PDF 产物
 ├── figures/
 │   └── sample-figure.png       # 示例插图（演示 \examfigure 用法）
 ├── preview/
@@ -221,6 +225,23 @@ png / jpg / pdf 都能直接插入；svg 请先转成 pdf。表格用标准 `tab
 | `\examsectionpreskip` / `\examsectionpostskip` | `1.2em` / `0.4em` | 大题标题上下间距 |
 | `\exam@warn` `\exam@id` `\exam@seal` | — | 密封线三行竖排文字的内容 |
 | `\exam@side` 里的 `\put(x,y)` | `(27.9,286) (53.1,283.5) (76,145.5)` | 密封线三行文字坐标，单位 pt，原点在页面左下角 |
+
+## 自动编译（GitHub Actions）
+
+仓库自带 CI（[`.github/workflows/build.yml`](.github/workflows/build.yml)）：**每次 push 到 `main`
+（或发起 Pull Request、手动触发）都会自动用 XeLaTeX 编译，并把 PDF 作为产物保存**。
+页首那个 `Build PDF` 徽章就是它的状态。
+
+- 查看构建结果：仓库页 **Actions → Build PDF**；
+- 下载 PDF：进入某次运行，页面底部 **Artifacts → `exam-paper-pdf`**，里面有
+  `template-blank.pdf`（空模板）和 `example-filled.pdf`（示例卷，3 页）；
+- 手动触发：Actions → Build PDF → **Run workflow**。
+
+CI 里做的事：先编译 `main.tex` 得到空模板，再用
+`sed 's/\\showexamplefalse/\\showexampletrue/' main.tex` 生成示例入口并编译，
+所以两种版本的 PDF 都会被构建一遍——这等于每次提交都帮你做了一次编译验证。
+
+> 本地没有装 TeX 的同学，可以直接下载 Actions 里的 Artifacts 取用编译好的 PDF。
 
 ## 常见问题
 

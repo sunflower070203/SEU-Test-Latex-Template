@@ -1,0 +1,53 @@
+name: Build PDF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 编译试卷（XeLaTeX）
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      # 1) 空模板：main.tex 默认输出不带题目的骨架
+      - name: 编译空模板
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
+          args: -file-line-error -interaction=nonstopmode
+
+      - name: 重命名空模板产物
+        run: mv main.pdf template-blank.pdf
+
+      # 2) 示例卷：把开关改成 true 后另存为新入口再编译
+      - name: 生成示例入口（打开 \showexample 开关）
+        run: sed 's/\\showexamplefalse/\\showexampletrue/' main.tex > example-build.tex
+
+      - name: 编译示例卷
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: example-build.tex
+          latexmk_use_xelatex: true
+          args: -file-line-error -interaction=nonstopmode
+
+      - name: 重命名示例产物
+        run: mv example-build.pdf example-filled.pdf
+
+      - name: 上传编译结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: exam-paper-pdf
+          path: |
+            template-blank.pdf
+            example-filled.pdf
+          if-no-files-found: error
