@@ -32,6 +32,14 @@
 \RequirePackage{lastpage}   % 页脚「共 X 页」
 \RequirePackage{eso-pic}    % 密封线背景层
 \RequirePackage{fancyhdr}   % 页脚
+\RequirePackage{iftex}      % 引擎检测：本模板必须用 XeLaTeX/LuaLaTeX
+\ifPDFTeX
+  \ClassError{exampaper}%
+    {本模板包含中文，必须使用 XeLaTeX 或 LuaLaTeX 编译}%
+    {请在编辑器里把编译器切换为 XeLaTeX 后重新编译：%
+     Overleaf 为 Menu ---> Compiler ---> XeLaTeX；%
+     命令行请执行 xelatex main.tex}
+\fi
 
 %% ===========================================================================
 %% 3. 页面尺寸（A4 = 595.28pt × 841.89pt）
@@ -115,40 +123,49 @@
     一\or 二\or 三\or 四\or 五\or 六\or
     七\or 八\or 九\or 十\or 十一\or 十二%
   \else #1\fi}
-\newcommand*{\theexamsection}{\exam@chnum{\value{examsection}}}
+%% \newcounter 已自动定义 \theexamsection，此处改为 \renewcommand 覆盖为中文数字
+\renewcommand*{\theexamsection}{\exam@chnum{\value{examsection}}}
 
 %% 加高行高的支柱（「得分」「评阅人」行，文字在行内垂直居中）
 \newcommand*{\exam@strut}{\rule[-0.7em]{0pt}{1.45em}}
 
-%% 生成 (n-1) 个 & ，用于「得分」「评阅人」行的空栏
-\newcommand*{\exam@amps}[1]{%
-  \exam@col=\@ne
+%% 评分表的行体：必须在表格环境之外先把「&」串与表头串展开好。
+%% LaTeX 的表格钩子（\__tbl_hook_use_protected:nVVn）不允许在单元格内使用
+%% \loop 这类前瞻式循环（会报 Forbidden control sequence found while scanning
+%% use of \loop）。
+\newcommand*{\exam@ampstr}{}
+\newcommand*{\exam@headstr}{}
+\newcommand*{\exam@buildrows}[1]{%
+  \def\exam@ampstr{}%
+  \def\exam@headstr{}%
+  \exam@col=\z@
   \loop\ifnum\exam@col<#1\relax
-    &\advance\exam@col\@ne
+    \advance\exam@col\@ne
+    \ifnum\exam@col>\@ne
+      \xdef\exam@ampstr{\exam@ampstr &}%
+      \xdef\exam@headstr{\exam@headstr & \exam@chnum{\exam@col}}%
+    \else
+      \xdef\exam@headstr{\exam@chnum{\exam@col}}%
+    \fi
   \repeat}
 
-%% 生成评分表表头：一 & 二 & … & N
-\newcommand*{\exam@heads}[1]{%
-  \exam@col=\@ne
-  \loop\ifnum\exam@col<#1\relax
-    \exam@chnum{\exam@col} &\advance\exam@col\@ne
-  \repeat
-  \exam@chnum{\exam@col}}
-
 \newcommand{\examscoretable}[1][6]{%
+  \begingroup
+  \exam@buildrows{#1}%                        行体在表格外生成
   \edef\exam@clinend{\the\numexpr#1+1\relax}%  横线只画到「总分」列之前
   \begin{center}
   \setlength{\tabcolsep}{4pt}%
   \begin{tabularx}{\textwidth}{|C|*{#1}{C|}C|}
     \hline
-    \heiti 题号 & \exam@heads{#1} & \multirow{3}{*}{\heiti 总分} \\
+    \heiti 题号 & \exam@headstr & \multirow{3}{*}{\heiti 总分} \\
     \cline{1-\exam@clinend}
-    \heiti 得分\exam@strut & \exam@amps{#1} & \\
+    \heiti 得分\exam@strut & \exam@ampstr & \\
     \cline{1-\exam@clinend}
-    \heiti 评阅人\exam@strut & \exam@amps{#1} & \\
+    \heiti 评阅人\exam@strut & \exam@ampstr & \\
     \hline
   \end{tabularx}
-  \end{center}}
+  \end{center}
+  \endgroup}
 
 %% ===========================================================================
 %% 9. 大题与小题

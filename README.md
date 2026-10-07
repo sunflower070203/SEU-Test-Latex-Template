@@ -40,10 +40,18 @@ xelatex main.tex
 latexmk -xelatex main.tex
 ```
 
-在 Overleaf 上使用：New Project → Upload Project，直接上传本项目的 zip 即可。
-项目自带 `latexmkrc`（`$pdf_mode = 5`），Overleaf 会自动用 XeLaTeX 编译，无需手动切换；
-若仍提示找不到字体，把 `\documentclass[12pt,a4paper]{exampaper}` 换成
-`\documentclass[fontset=fandol]{exampaper}`（Overleaf 是 Linux 环境，默认字体集为 fandol）。
+### 在 Overleaf 上使用（已实测通过）
+
+1. New Project → Upload Project，上传本项目的 zip。
+2. **必须改编译器**：左下角 Settings → Compiler → 选 `XeLaTeX`（默认是 pdfLaTeX，
+   会出现 `CTeX fontset 'fandol' is unavailable` + `Package CJK Error: Invalid character code`）。
+   项目自带的 `latexmkrc`（`$pdf_mode = 5`）**不能**覆盖 Overleaf 的项目级编译器设置，
+   实测仍会走 pdfLaTeX，所以这一步必须手动做。
+3. 若报找不到字体，把 `\documentclass[12pt,a4paper]{exampaper}` 换成
+   `\documentclass[fontset=fandol]{exampaper}`（Overleaf 是 Linux 环境，默认字体集为 fandol）。
+
+> 本模板在文档类里已加入引擎检测：用 pdfLaTeX 编译时会直接报
+> 「本模板包含中文，必须使用 XeLaTeX 或 LuaLaTeX 编译」，而不是抛出一堆看不懂的错。
 
 ## 文件说明
 
