@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: 检出仓库
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # 1) 空模板：main.tex 默认输出不带题目的骨架
       - name: 编译空模板
@@ -44,7 +44,7 @@ jobs:
         run: mv example-build.pdf example-filled.pdf
 
       - name: 上传编译结果
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: exam-paper-pdf
           path: |
