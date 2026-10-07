@@ -40,8 +40,10 @@ xelatex main.tex
 latexmk -xelatex main.tex
 ```
 
-在 Overleaf 上使用：`Menu → Compiler` 选择 `XeLaTeX`；若提示找不到字体，
-把 `\documentclass[12pt,a4paper]{exampaper}` 换成 `\documentclass[fontset=fandol]{exampaper}`。
+在 Overleaf 上使用：New Project → Upload Project，直接上传本项目的 zip 即可。
+项目自带 `latexmkrc`（`$pdf_mode = 5`），Overleaf 会自动用 XeLaTeX 编译，无需手动切换；
+若仍提示找不到字体，把 `\documentclass[12pt,a4paper]{exampaper}` 换成
+`\documentclass[fontset=fandol]{exampaper}`（Overleaf 是 Linux 环境，默认字体集为 fandol）。
 
 ## 文件说明
 
