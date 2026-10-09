@@ -26,7 +26,7 @@
 - 抬头信息栏：`课程名称 / 课程代码 / 考试学期 / 适用专业 / 考试形式 / 考试时长`，带下划线填空；
 - 评分表：`题号 | 一 | 二 | … | 总分`，`得分 / 评阅人` 两行，「总分」列自动跨行合并，栏数可调；
 - 大题自动编号（`一、` `二、` `三、` …）、小题自动编号（`1.` `2.` …），每栏小题号自动重置；
-- 答题留白：`\begin{examquestions}[7cm]` 一个参数即可在每题后留出空白；
+- 答题留白：`\examanswerspace{7cm}` 放在题干之后，逐题留出书写空间（含最后一题）；
 - 左侧竖排**密封线**：考场纪律提示 + 学号/姓名 + 点线「密 封 线」，逐页出现在背景层；
 - 插图：内置 `\examfigure` 命令（也支持标准 `figure` 环境），图片放 `figures/` 即可；
 - 页脚：`试卷名　共 X 页　第 Y 页`，总页数自动统计，多页不掉页码；
@@ -150,8 +150,9 @@ Overleaf 首页 → **New Project → Import from GitHub**，选择本仓库即�
 \end{examquestions}
 
 \examsection{计算题（本题共 ? 小题，每小题 ? 分，满分 ? 分）}
-\begin{examquestions}[7cm]                 % 7cm = 每题后留出的答题空间
+\begin{examquestions}[0pt]                 % 0pt：题目紧排，答题空间逐题显式留出
   \examquestion 〈题干〉
+  \examanswerspace{7cm}                    % 本题 7cm 答题空间（最后一题同样生效）
 \end{examquestions}
 
 \end{document}
@@ -187,14 +188,17 @@ png / jpg / pdf 都能直接插入；svg 请先转成 pdf。表格用标准 `tab
 | --- | --- |
 | 让某道大题整体挪到下一页开头 | 在 `\examsection{...}` 前加 `\newpage` |
 | 长题目自动断开 | 不用管，LaTeX 会在行间自动分页 |
-| 加/减答题空间 | 调 `\begin{examquestions}[7cm]` 的间距，或改 `\examitemsep` |
+| 加/减答题空间 | 调 `\examanswerspace{7cm}` 里的长度 |
 | 整份试卷不要密封线 | 导言区写 `\examsidebarfalse` |
 
-两个容易踩的点：
+三个容易踩的点：
 
 1. **必须编译两遍**，否则页脚总页数是上一轮的；
 2. **单处答题留白别超过一页**：当前页只剩 3cm 而你要 7cm 时，空白会被切到下一页，
    看起来像「答题位置不见了」。对策：调小间距，或在该大题前 `\newpage`。
+3. **不要用 `\begin{examquestions}[7cm]` 留答题空间**（这是最常见的误解）。
+   该参数是 `\parskip`（段间距），只在段落**之间**生效，实际效果是
+   「留白跑到第一题之前、最后一题之后反而没有」。请改用 `\examanswerspace{7cm}`。
 
 ## 命令速查
 
@@ -205,7 +209,8 @@ png / jpg / pdf 都能直接插入；svg 请先转成 pdf。表格用标准 `tab
 | `\examfield[宽]{项目名}{内容}` | 抬头信息栏的一项；宽度即下划线长度，内容留空得到空白横线，内容用楷体 |
 | `\examscoretable[大题数]` | 评分表，默认 6 个评阅格，宽度自动撑满版心 |
 | `\examsection{栏目标题}` | 大题标题，自动加「一、」「二、」…，并把小题号重置为 1 |
-| `\begin{examquestions}[题间距]` … `\end{examquestions}` | 小题区；默认 13pt，给如 `[7cm]` 即每题后留答题空间 |
+| `\begin{examquestions}[题间距]` … `\end{examquestions}` | 小题区；参数是**题间距**，默认 13pt（不是答题空间） |
+| `\examanswerspace{长度}` | 在某题后留出答题空间（最后一题同样生效）；配合 `[0pt]` 使用 |
 | `\examquestion` | 输出「1.」「2.」…（每道大题内重新计数），别名 `\question` |
 | `\begin{examproblem}` … `\end{examproblem}` | 单个大题（不自动编号小题） |
 | `\examfigure[宽]{图题}{图片文件}` | 插入一张图并自动给图号 |

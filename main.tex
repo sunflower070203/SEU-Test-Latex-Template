@@ -51,8 +51,9 @@
 
   %% 大题与小题：
   %% \examsection{<栏目标题>}              自动加「一、」「二、」…（每题重新计小题号）
-  %% \begin{examquestions}[<小题间距>]     小题区，默认 13pt；要留答题空间就写大些，如 [7cm]
+  %% \begin{examquestions}[<题间距>]        小题区，参数是题间距（默认 13pt），不是答题空间
   %%   \examquestion <题干>
+  %%   \examanswerspace{7cm}                本题的答题空间（最后一题同样生效）
   %% \end{examquestions}
   %% \begin{examproblem} <题干> \end{examproblem}   单个大题
   %% \examfigure[<宽度>]{<图题>}{<图片文件>}        插图（图片放 figures/ 下）
@@ -64,8 +65,9 @@
   \end{examquestions}
 
   \examsection{〈第二栏标题，例如：计算题（本题共 ? 小题，每小题 ? 分，满分 ? 分）〉}
-  \begin{examquestions}[7cm]%  小题之间留 7cm 答题空间
+  \begin{examquestions}[0pt]%  0pt：题目紧排，答题空间逐题显式留出
     % \examquestion 〈题干〉
+    % \examanswerspace{7cm}   本题 7cm 答题空间
   \end{examquestions}
 
   \examsection{〈第三栏标题〉}
